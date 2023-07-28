@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="./signup.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div>
+          <div class="shadow mx-auto rounded bg-light text-center col-md-12 col-12">
+            <h5 class="px-md-5 px-2 py-1 py-md-2 fw-bold"> <a style="color: rgb(156, 5, 202)"
+                class="float-start text-decoration-none " href="./index.html">
+                <span style="color: rgb(136, 12, 136)">DORC-</span> <span>to-do</span></a></5>
+              <img src="./images/mobile-phone-with-check-list-screen_107791-17459-removebg-preview.png" alt=""
+                class="col-10 col-md-3" />
+              <div class="col-12 col-md-6 get-position py-md-1 py-3 shadow px-md-3 px-3 mx-auto">
+                <h4 style="color: purple;" class="fw-bold">SIGN-UP</h4>
+                <input type="text" placeholder="Full-Name" class="form-control my-md-2 my-3" id="fullName">
+                <input type="text" placeholder="Email" class="form-control my-md-2 my-3" id="userEmail">
+                <input type="text" placeholder="password" class="form-control my-md-2 my-3" id="userPassword">
+                <input type="text" placeholder="confirm-passowrd" class="form-control my-md-2 my-3" id="userConfirm">
+                <button style="background-color: purple;" class="text-light w-50 btn">Sign-up</button>
+                <p class="mt-2"> Already have an account <a href="./signin.html"
+                    class="text-decoration-none">Sign-in</a></p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    let storeDate = localStorage.saveDetails ? JSON.parse(localStorage.saveDetails) : []
+    let userDetails;
+    document.querySelector(".btn").addEventListener('click', () => {
+      let validDetais = (!fullName.value || !userEmail.value || !userPassword.value || !userConfirm.value)
+      let messageInvalid = "form-control is-invalid mt-3 mb-3 border border-danger"
+      let messageValid = "form-control is-valid mt-3 mb-3 border border-success"
+      // const usernameRegex=/^\w+$/;
+      // const username=fullName.value
+      // if(!usernameRegex.test(username)){
+      //   alert("invalid username")
+      // }
+      // else{
+      //   alert("good")
+      // }
+      if (validDetais) {
+        fullName.className = messageInvalid
+        userEmail.className = messageInvalid
+        userPassword.className = messageInvalid
+        userConfirm.className = messageInvalid
+      }
+
+      else if(userPassword.value!=userConfirm.value){
+        userConfirm.className = messageInvalid
+      }
+      else {
+        fullName.className = messageValid
+        userEmail.className = messageValid
+        userPassword.className = messageValid
+        userConfirm.className = messageValid
+        userDetails = {
+          full_name: fullName.value,
+          user_email: userEmail.value,
+          user_password: userPassword.value,
+          user_confirm: userConfirm.value
+        }
+        storeDate.push(userDetails)
+        localStorage.setItem("saveDetails", JSON.stringify(storeDate))
+        console.log(storeDate)
+        alert("Sucessful signup")
+        window.location.href="signin.html"
+      }
+    })
+  </script>
+</body>
+
+</html>

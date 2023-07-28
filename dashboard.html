@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./dashboard.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <!-- <nav class="navbar container-fluid col-md-12 fixed-top"> -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="">
+            <div
+              style="background-color: rgba(146, 2, 146, 0.925)"
+              class="border rounded col-md-12 col-12 py-3 shadow"
+            >
+              <div class="d-flex gap-md-2 mt-3 px-3">
+                <div class="img-height">
+                  <img
+                    class="shadow"
+                    src="./612d09168dc2ee643b854f5b_Jarvis Full Body (1).png"
+                    alt=""
+                  />
+                </div>
+                <h6 class="mt-1 text-light get_user_name">Hi, ?</h6>
+              </div>
+              <p class="px-5 mt-3 text-light text-md-center">
+               <h6 style="font-size: 14px;" class="text-center mx-auto text-light col-md-7">
+                An efficient and intuitive task management app, with visual appeal and timely reminders, designed to boost productivity and collaboration.</h6>
+              </p>
+            </div>
+            <div>
+              <div id="get_message" class="form-control col-sm-12 col-8 mx-auto  "></div>
+              <div class="text-center mt-3">
+                <div id="displayInput"></div>
+                <div class="btn-div text-center">
+                  <button
+                    type="button"
+                    class="btn btn-warning create_btn text-light mt-3 fw-bold w-50"
+                    onclick="createTask()"
+                    data-bs-dismiss="btn-div"
+                    aria-label="Close"
+                  >
+                    Create New Task
+                  </button>
+                </div>
+              </div>
+              <div id="display_view"></div>
+              <div id="displayTask" class="get-overflow col-md-6 mx-auto"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- </nav> -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <input
+              type="text"
+              class="w-70 my-2 form-control layou-3"
+              placeholder="Task-Name"
+              id="task_name_new"
+            />
+            <input
+              type="text"
+              class="w-70 my-2 form-control"
+              placeholder="Task-Description"
+              id="task_description_new"
+            />
+            <input
+              type="text"
+              class="w-70 my2 form-control"
+              placeholder="Task-Category"
+              id="task_category_new"
+            />
+            <input
+              type="datetime-local"
+              class="w-70 my-2 form-control"
+              placeholder="select-Time"
+              id="time_select_new"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" onclick="editUser()">
+              Save changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="mx-auto ">
+            <div class=" w-100 px-5 mx-auto get-position">
+              <div class="d-flex col-md-7 col-12 mx-auto   get-style justify-content-evenly">
+                <div class="py-2  fw-bold fs-2">
+                  <a href="./index.html" class="text-decoration-none d-flex text-dark">  
+                  <i class="bi bi-house-fill"></i>
+                  <h6 class="ms-1 mt-2 mt-md-3">Home</h6></a>
+                </div>
+                <div class="py-2  fw-bold fs-2">
+                  <a href="./signup.html" class="text-decoration-none d-flex text-dark">
+                  <i class="bi bi-box-arrow-in-right"></i>
+                  <h6 class=" ms-1 mt-2 mt-md-3  "> Log-out</h6></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let storeDate = localStorage.saveDetails ? JSON.parse(localStorage.saveDetails) : []
+      storeDate.map((getName)=>{
+        document.querySelector(".get_user_name").innerHTML= `Hi, ${getName.full_name}`
+      })
+      const createTask = () => {
+        get_message.style.display="none"
+        get_message.innerHTML=""
+        document.querySelector(".create_btn").style.display = "none";
+        
+        
+        displayInput.innerHTML = `
+        <div class="container">
+                    <div class="row">
+                      <div class="border shadow input-contain col-sm-12 mx-auto col-md-6 py-4 pb-3">
+                        <h4 class="fw-bold">CREATE-TASK</h4>
+                        <input type="text" class="form-control my-3" placeholder="Task-Name" id="taskName" >
+                        <input type="text" class="form-control my-3" placeholder="Task-Description" id="taskDescription" >
+                        <input type="text" class="form-control my-3" placeholder="Task-Category" id="taskCategory" >
+                        <input type="datetime-local" class="form-control my-3" placeholder="select-Time" id="selectTime" >
+                      <div class="">
+                        <button style="background-color: purple;" onclick="addTask()" class="btn text-light w-50 fw-bold">SAVE</button>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+        `;
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        taskArray = JSON.parse(localStorage.getItem("storeTask")) || [];
+          if (taskArray.length == 0) {
+            get_message.className="alert alert-info mt-3"
+            get_message.innerHTML="<h5 class='text-center  fw-bold '>NO TASK IS ADDED YET</h5>"
+      }
+        display_Task();
+      });
+
+      const addTask = () => {
+        display_view.innerHTML = "";
+        document.querySelector(".create_btn").style.display = "block";
+        document.querySelector(".create_btn").style.margin = "0 auto";
+
+        let each_Task = {
+          task_name: taskName.value,
+          task_description: taskDescription.value,
+          task_category: taskCategory.value,
+          time_select: selectTime.value,
+        };
+
+        let validate =
+          !taskName.value ||
+          !taskDescription.value ||
+          !taskCategory.value ||
+          !selectTime.value;
+        if (validate) {
+          alert("all fields are required");
+        } else {
+          taskArray.push(each_Task);
+          taskName.value = "";
+          taskDescription.value = "";
+          taskCategory.value = "";
+          selectTime.value = "";
+          localStorage.setItem("storeTask", JSON.stringify(taskArray));
+          document.querySelector(".input-contain").style.display = "none";
+          display_Task();
+        }
+      };
+     
+      function display_Task() {
+        displayTask.innerHTML = "";
+        taskArray.map((eachTask, i) => {
+          displayTask.innerHTML += ` 
+            <div
+                class="border d-flex justify-content-between position-relative get-background px-md-3 px-2 pb-2 pb-md-3 mx-auto mt-md-4 mt-4 col-md-12 col-12" id="col"
+                  >
+                    <div>
+                      <div
+                        class="d-flex px-md-5 px-2 mt-2 justify-content-between gap-md-3 gap-2"
+                      >
+                        <h6 class="fw-bold mt-md-2 mt-2 " style="color:purple;">TASK <span class="text-danger"> (${
+                          i + 1
+                        })</span></h6>
+                        <span class="mt-md-1 mt-1"> ${
+                          eachTask.time_select
+                        }</span>
+                      </div>
+                      
+                      <div> <b class="" style="color:purple;">Task-Name: </b><i> ${eachTask.task_name}</i></div>
+                      <div> <b class="" style="color:purple;">Task-Description: </b><i>  ${eachTask.task_description}</i></div>
+                      <div> <b class="" style="color:purple;">Task-Category: </b> <i> ${eachTask.task_category}</i></div>
+                    </div>
+                    <div>
+                      <button onclick="viewTask(${i})" class="btn fw-bold mt-5 text-light btn-warning">
+                        VIEW
+                      </button>
+                      </div>
+                      </div>`;
+        });
+      }
+      function viewTask(userTask) {
+        let anArray = taskArray[userTask];
+        display_view.innerHTML = `
+         <div class="container">
+             <div class="row">
+               <div class="col-sm-12">
+                 <div class="position-style">
+               <div class="border py-3 bg-light display_user col-12 col-md-6 mx-auto shadow px-3 pb-3 ">
+                 <h4 class="fw-bold text-center">CREATE-TASK</h4>
+                 <div class="my-3 d-flex justify-content-between fw-bold shadow">
+
+                   <span class="py-1 d-flex justify-content-between gap-md-5">Task-Name: <i><input type="text" disabled value="${anArray.task_name}" class="form-control ms-2"></i></span>
+                 </div>
+                 <div class="my-3 d-flex justify-content-between fw-bold shadow">
+
+                   <span class="py-1 d-flex justify-content-between gap-md-5">Task-Description: <i>
+                     <textarea name="" disabled id="" class="form-control ms-2" cols="20" rows="1">${anArray.task_description}</textarea></i></span>
+                   </div>
+                   <div class="my-3 d-flex justify-content-between fw-bold shadow">
+                    
+                     <span class="py-1 d-flex justify-content-between gap-md-5">Task-Category: <i><input type="text" disabled value="${anArray.task_category}" class="form-control ms-2"></i></span>
+                     </div>
+                     <div class="my-3 d-flex justify-content-between fw-bold shadow">
+                      
+                   <span class="py-1 d-flex justify-content-between gap-md-5">Time-Select: <i><input type="text" disabled value="${anArray.time_select}" class="form-control ms-2"></i></span>
+                  </div>
+                  <div class="d-flex gap-md-5 pb-2 gap-3 mt-2">
+                    <button class="btn text-light btn-warning w-50" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editUser(${userTask})">Edit</button>
+                    <button class="btn text-light btn-danger w-50" onclick="deleteTask(${userTask})">Delete</button>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+      `;
+      }
+      function deleteTask(taskIndex) {
+        document.querySelector(".display_user ").style.display="none"
+        if (confirm("Are you sure you want to delete this task?")) {
+          taskArray.splice(taskIndex, 1);
+          localStorage.setItem("storeTask", JSON.stringify(taskArray));
+          // document.getElementById(" get_message").style.border="none"
+          display_Task();
+        }
+        window.location.reload()
+      }
+      function editUser(edit) {
+        display_view.innerHTML = "";
+        var userTask_Edit = {
+          task_name: task_name_new.value,
+          task_description: task_description_new.value,
+          task_category: task_category_new.value,
+          time_select: time_select_new.value,
+        };
+        taskArray.splice(edit, 1, userTask_Edit);
+        localStorage.setItem("storeTask", JSON.stringify(taskArray));
+        display_Task();
+      }
+
+      function update() {
+        let editedTask = {
+          task_name: task_name_new.value,
+          task_description: task_description_new.value,
+          task_category: task_category_new.value,
+          time_select: time_select_new.value,
+        };
+        taskArray[editIndex] = editedTask;
+        localStorage.setItem("storeTask", JSON.stringify(taskArray));
+        display_Task();
+        document.getElementById("exampleModal").remove();
+      }
+    </script>
+    <!-- <script src="./bootstrap-5.2.2-dist/js/bootstrap.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>

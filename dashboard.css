@@ -1,0 +1,52 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.img-height img{
+    height: 2pc;
+    width: 2pc;
+    border-radius: 50px;
+
+}
+.form-control{
+    font-family: monospace;
+    background-color: rgba(209, 203, 203, 0.192) !important;
+    border: 1px solid purple !important;
+}
+.get-background{
+    border-radius: 10px;
+    background-color: rgba(189, 206, 207, 0.952);
+}
+.get-overflow{
+  overflow-y: scroll;
+  height: 50vh;
+}
+i{
+    font-weight: 500;
+}
+.position-style{
+    position: relative;
+    top: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.get-position{
+    position: absolute;
+    bottom: 0 !important;
+    position: fixed;
+    
+}
+.get-style{
+    border-radius: 100px;
+    background: rgba(167, 18, 167, 0.411);
+    box-shadow: 0 0 6px;
+
+}
+.bi ,h6{
+color: purple !important;
+font-weight: 600 !important;
+
+}
